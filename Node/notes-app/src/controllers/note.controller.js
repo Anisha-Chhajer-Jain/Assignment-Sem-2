@@ -110,6 +110,41 @@ const updateNote = async (req, res) => {
 };
 
 
+
+
+// 7. DELETE /api/notes/:id - Delete a single note
+const deleteNote = async (req, res) => {
+  try {
+    const note = await Note.findByIdAndDelete(req.params.id);
+    if (!note) {
+      return res.status(404).json({ success: false, message: "Note not found" });
+    }
+    res.status(200).json({
+      success: true,
+      message: "Note deleted successfully",
+      data: null
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+// // 8. DELETE /api/notes/bulk - Delete multiple notes
+// const deleteBulkNotes = async (req, res) => {
+//   try {
+//     const { ids } = req.body;
+//     const result = await Note.deleteMany({ _id: { $in: ids } });
+//     res.status(200).json({
+//       success: true,
+//       message: `${result.deletedCount} notes deleted successfully`,
+//       data: null
+//     });
+//   } catch (error) {
+//     res.status(500).json({ success: false, message: error.message });
+//   }
+// };
+
+
 module.exports = {
   createNote,
   createBulkNotes,

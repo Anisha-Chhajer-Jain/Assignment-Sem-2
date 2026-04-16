@@ -129,20 +129,20 @@ const deleteNote = async (req, res) => {
   }
 };
 
-// // 8. DELETE /api/notes/bulk - Delete multiple notes
-// const deleteBulkNotes = async (req, res) => {
-//   try {
-//     const { ids } = req.body;
-//     const result = await Note.deleteMany({ _id: { $in: ids } });
-//     res.status(200).json({
-//       success: true,
-//       message: `${result.deletedCount} notes deleted successfully`,
-//       data: null
-//     });
-//   } catch (error) {
-//     res.status(500).json({ success: false, message: error.message });
-//   }
-// };
+// 8. DELETE /api/notes/bulk - Delete multiple notes
+const deleteBulkNotes = async (req, res) => {
+  try {
+    const { ids } = req.body;
+    const result = await Note.deleteMany({ _id: { $in: ids } });
+    res.status(200).json({
+      success: true,
+      message: `${result.deletedCount} notes deleted successfully`,
+      data: null
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
 
 
 module.exports = {

@@ -86,6 +86,30 @@ const replaceNote = async (req, res) => {
   }
 };
 
+
+
+// 6. PATCH /api/notes/:id - Update specific fields only
+const updateNote = async (req, res) => {
+  try {
+    const note = await Note.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true, runValidators: true }
+    );
+    if (!note) {
+      return res.status(404).json({ success: false, message: "Note not found" });
+    }
+    res.status(200).json({
+      success: true,
+      message: "Note updated successfully",
+      data: note
+    });
+  } catch (error) {
+    res.status(400).json({ success: false, message: error.message });
+  }
+};
+
+
 module.exports = {
   createNote,
   createBulkNotes,

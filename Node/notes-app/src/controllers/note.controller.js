@@ -46,8 +46,29 @@ const getNotes = async (req, res) => {
 };
 
 
+
+// 4. GET /api/notes/:id - Get note by ID
+const getNoteById = async (req, res) => {
+  try {
+    const note = await Note.findById(req.params.id);
+    if (!note) {
+      return res.status(404).json({ success: false, message: "Note not found" });
+    }
+    res.status(200).json({
+      success: true,
+      message: "Note fetched successfully",
+      data: note
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+
+
 module.exports = {
   createNote,
   createBulkNotes,
   replaceNote,
+  getNotes,
 };

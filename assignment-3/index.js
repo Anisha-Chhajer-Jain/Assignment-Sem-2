@@ -69,25 +69,25 @@ app.get('/states/highest-gdp', (req, res) => {
 });
 
 
-// //Route 2
+//Route 2
 
 
-// app.get('/states/:id', (req, res)=>{
-//     const id = Number(req.params.id);
-//     const data = states.find(u => u.id == id);
+app.get('/states/:id', (req, res)=>{
+    const id = Number(req.params.id);
+    const data = states.find(u => u.id == id);
 
-//     if(data){
-//         res.status(200).json(data);
-//     }
-//     else{
-//         res.status(404).json({
-//             message: "State not found"
-//         })
-//     }
-// })
+    if(data){
+        res.status(200).json(data);
+    }
+    else{
+        res.status(404).json({
+            message: "State not found"
+        })
+    }
+})
 
 
-// //route 4
+//route 4
 
 
 // app.post('/states', (req, res)=>{

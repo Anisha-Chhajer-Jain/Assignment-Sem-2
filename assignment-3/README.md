@@ -1,5 +1,7 @@
 ## State Management API (Node Assignment 3)
 
+**Author:** Anisha Chhajer
+
 Simple Express-based REST API to manage Indian state data (population, literacy rate, annual budget, GDP, etc.).
 
 - **Backend deploy link**: [https://node-assignment-3-cmj0.onrender.com](https://node-assignment-3-cmj0.onrender.com)

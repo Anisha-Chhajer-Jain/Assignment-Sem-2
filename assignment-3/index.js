@@ -206,29 +206,29 @@ app.patch('/states/:id/literacyrate', (req, res)=>{
 })
 
 
-// //route 9
+//route 9
 
 
-// app.patch('/states/:id/gdp', (req, res)=>{
-//     try{
-//     const id = Number(req.params.id);
-//     const state = states.find(u => u.id == id);
+app.patch('/states/:id/gdp', (req, res)=>{
+    try{
+    const id = Number(req.params.id);
+    const state = states.find(u => u.id == id);
 
-//     state.gdp = req.body.gdp
+    state.gdp = req.body.gdp
 
-//     res.status(200).json({
-//         message: "data changed successfullyy",
-//         name: state.name,
-//         updatedGDP: state.gdp
-//     })
+    res.status(200).json({
+        message: "data changed successfullyy",
+        name: state.name,
+        updatedGDP: state.gdp
+    })
 
-//     }
-//     catch{
-//         res.status(500).json({
-//             message: "please give proper id"
-//         })
-//     }
-// })
+    }
+    catch{
+        res.status(500).json({
+            message: "please give proper id"
+        })
+    }
+})
 
 
 // //route 10

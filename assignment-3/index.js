@@ -69,250 +69,250 @@ app.get('/states/highest-gdp', (req, res) => {
 });
 
 
-//Route 2
+// //Route 2
 
 
-app.get('/states/:id', (req, res)=>{
-    const id = Number(req.params.id);
-    const data = states.find(u => u.id == id);
+// app.get('/states/:id', (req, res)=>{
+//     const id = Number(req.params.id);
+//     const data = states.find(u => u.id == id);
 
-    if(data){
-        res.status(200).json(data);
-    }
-    else{
-        res.status(404).json({
-            message: "State not found"
-        })
-    }
-})
-
-
-//route 4
+//     if(data){
+//         res.status(200).json(data);
+//     }
+//     else{
+//         res.status(404).json({
+//             message: "State not found"
+//         })
+//     }
+// })
 
 
-app.post('/states', (req, res)=>{
-    try{
-  const {id, name, population, GDP} = req.body;
-
-    const newState = {
-        id: states.length + 1,
-        name,
-        population,
-        GDP
-    };
-     states.push(newState);
-    res.status(201).json(newState);
-
-}
-catch{
-    res.status(404).json({
-        message: "not found"
-    })
-}
-})
-
-//route 5
-
-app.put('/states/:id', (req, res)=>{
-    try{
-    const id = Number(req.params.id);
-    const data = states.findIndex(u=> u.id == id);
-    const updateData = req.body;
-    if(data !== -1){
-          states[data] = {
-            id: states[data].id,
-            ...updateData
-          }
-    }
-    res.status(201).json(states[data])
-    }
-    catch{
-        res.status(501).json({
-            message: "data can not be changed"
-        })
-    }
-})
+// //route 4
 
 
-//route 6
+// app.post('/states', (req, res)=>{
+//     try{
+//   const {id, name, population, GDP} = req.body;
 
-app.put('/states/:id/annualbudget', (req, res)=>{
-    try{
-    const id = Number(req.params.id);
-    const state = states.find(u=> u.id == id);
+//     const newState = {
+//         id: states.length + 1,
+//         name,
+//         population,
+//         GDP
+//     };
+//      states.push(newState);
+//     res.status(201).json(newState);
+
+// }
+// catch{
+//     res.status(404).json({
+//         message: "not found"
+//     })
+// }
+// })
+
+// //route 5
+
+// app.put('/states/:id', (req, res)=>{
+//     try{
+//     const id = Number(req.params.id);
+//     const data = states.findIndex(u=> u.id == id);
+//     const updateData = req.body;
+//     if(data !== -1){
+//           states[data] = {
+//             id: states[data].id,
+//             ...updateData
+//           }
+//     }
+//     res.status(201).json(states[data])
+//     }
+//     catch{
+//         res.status(501).json({
+//             message: "data can not be changed"
+//         })
+//     }
+// })
+
+
+// //route 6
+
+// app.put('/states/:id/annualbudget', (req, res)=>{
+//     try{
+//     const id = Number(req.params.id);
+//     const state = states.find(u=> u.id == id);
   
 
-    state.annualBudget = req.body.annualBudget;
+//     state.annualBudget = req.body.annualBudget;
 
-    res.status(201).json({
-        message: "data changed successfully",
-        updateBudget: state.annualBudget
-    })
-    }
-    catch{
-        res.status(501).json({
-            message: "data not changed"
-        })
-    }
-})
-
-
-//route 7
+//     res.status(201).json({
+//         message: "data changed successfully",
+//         updateBudget: state.annualBudget
+//     })
+//     }
+//     catch{
+//         res.status(501).json({
+//             message: "data not changed"
+//         })
+//     }
+// })
 
 
-app.put('/states/:id/population', (req, res)=>{
-    try{
-    const id = Number(req.params.id);
-    const state = states.find(u => u.id == id);
-
-    state.population = req.body.population
-
-    res.status(200).json({
-        message: "data changed successfullyy",
-        name: state.name,
-        updatedPop: state.population
-    })
-
-    }
-    catch{
-        res.status(500).json({
-            message: "internal server error"
-        })
-    }
-})
+// //route 7
 
 
-//route 8
+// app.put('/states/:id/population', (req, res)=>{
+//     try{
+//     const id = Number(req.params.id);
+//     const state = states.find(u => u.id == id);
 
-app.patch('/states/:id/literacyrate', (req, res)=>{
-    try{
-    const id = Number(req.params.id);
-    const state = states.find(u => u.id == id);
+//     state.population = req.body.population
 
-    state.literacyRate = req.body.literacyRate
+//     res.status(200).json({
+//         message: "data changed successfullyy",
+//         name: state.name,
+//         updatedPop: state.population
+//     })
 
-    res.status(200).json({
-        message: "data changed successfullyy",
-        name: state.name,
-        updatedLit: state.literacyRate
-    })
-
-    }
-    catch{
-        res.status(500).json({
-            message: "please give proper id"
-        })
-    }
-})
+//     }
+//     catch{
+//         res.status(500).json({
+//             message: "internal server error"
+//         })
+//     }
+// })
 
 
-//route 9
+// //route 8
+
+// app.patch('/states/:id/literacyrate', (req, res)=>{
+//     try{
+//     const id = Number(req.params.id);
+//     const state = states.find(u => u.id == id);
+
+//     state.literacyRate = req.body.literacyRate
+
+//     res.status(200).json({
+//         message: "data changed successfullyy",
+//         name: state.name,
+//         updatedLit: state.literacyRate
+//     })
+
+//     }
+//     catch{
+//         res.status(500).json({
+//             message: "please give proper id"
+//         })
+//     }
+// })
 
 
-app.patch('/states/:id/gdp', (req, res)=>{
-    try{
-    const id = Number(req.params.id);
-    const state = states.find(u => u.id == id);
-
-    state.gdp = req.body.gdp
-
-    res.status(200).json({
-        message: "data changed successfullyy",
-        name: state.name,
-        updatedGDP: state.gdp
-    })
-
-    }
-    catch{
-        res.status(500).json({
-            message: "please give proper id"
-        })
-    }
-})
+// //route 9
 
 
-//route 10
+// app.patch('/states/:id/gdp', (req, res)=>{
+//     try{
+//     const id = Number(req.params.id);
+//     const state = states.find(u => u.id == id);
+
+//     state.gdp = req.body.gdp
+
+//     res.status(200).json({
+//         message: "data changed successfullyy",
+//         name: state.name,
+//         updatedGDP: state.gdp
+//     })
+
+//     }
+//     catch{
+//         res.status(500).json({
+//             message: "please give proper id"
+//         })
+//     }
+// })
 
 
-app.patch('/states/:id', (req, res)=>{
-    const id = Number(req.params.id);
-    const state = states.find(u => u.id == id);
-    const updateData = req.body;
-
-     for (let key in updateData) {
-        state[key] = updateData[key];
-    }
-
-    res.status(201).json({
-        message: "data changed successfully",
-        state
-    })
-})
+// //route 10
 
 
+// app.patch('/states/:id', (req, res)=>{
+//     const id = Number(req.params.id);
+//     const state = states.find(u => u.id == id);
+//     const updateData = req.body;
 
-//route 11
+//      for (let key in updateData) {
+//         state[key] = updateData[key];
+//     }
 
-
-app.delete('/states/:id', (req, res)=>{
-    const id = Number(req.params.id);
-    const data = states.findIndex(u=> u.id == id);
- if(data == -1){
-        res.status(500).json({
-            message: "invalid id"
-        });
-    }
-     const deletedState = states.splice(data, 1);
-
-      res.status(200).json({
-        message: "State deleted successfully",
-        deletedState: deletedState[0]
-    });
-})
+//     res.status(201).json({
+//         message: "data changed successfully",
+//         state
+//     })
+// })
 
 
 
-//route 12
-
-app.delete('/states/name/:statename', (req, res)=>{
-    const name = String(req.params.statename.toLowerCase());
-    const delState = states.find(u=> u.name.toLowerCase() == name.toLowerCase());
-    if(delState == -1){
-        res.status(500).json({
-            message: "no state found"
-        })
-    }
-
-    const state = states.splice(name, 1);
-
-    res.status(200).json({
-        message: "state deleted successfully",
-        state: state[0]
-    })
-})
+// //route 11
 
 
+// app.delete('/states/:id', (req, res)=>{
+//     const id = Number(req.params.id);
+//     const data = states.findIndex(u=> u.id == id);
+//  if(data == -1){
+//         res.status(500).json({
+//             message: "invalid id"
+//         });
+//     }
+//      const deletedState = states.splice(data, 1);
 
-//route 13
+//       res.status(200).json({
+//         message: "State deleted successfully",
+//         deletedState: deletedState[0]
+//     });
+// })
 
 
-app.delete('/states/low-literacy/:percentage', (req, res) => {
-    const percentage = Number(req.params.percentage);
-    let deletedStates = [];
 
-    for (let i = 0; i < states.length; i++) {
-        if (states[i].literacyRate < percentage) {
-            const removed = states.splice(i, 1); 
-            deletedStates.push(removed[0]);
-            i--;
-        }
-    }
+// //route 12
 
-    res.status(201).json({
-        message: "Data deleted successfully",
-        deletedStates: deletedStates
-    });
-});
+// app.delete('/states/name/:statename', (req, res)=>{
+//     const name = String(req.params.statename.toLowerCase());
+//     const delState = states.find(u=> u.name.toLowerCase() == name.toLowerCase());
+//     if(delState == -1){
+//         res.status(500).json({
+//             message: "no state found"
+//         })
+//     }
+
+//     const state = states.splice(name, 1);
+
+//     res.status(200).json({
+//         message: "state deleted successfully",
+//         state: state[0]
+//     })
+// })
+
+
+
+// //route 13
+
+
+// app.delete('/states/low-literacy/:percentage', (req, res) => {
+//     const percentage = Number(req.params.percentage);
+//     let deletedStates = [];
+
+//     for (let i = 0; i < states.length; i++) {
+//         if (states[i].literacyRate < percentage) {
+//             const removed = states.splice(i, 1); 
+//             deletedStates.push(removed[0]);
+//             i--;
+//         }
+//     }
+
+//     res.status(201).json({
+//         message: "Data deleted successfully",
+//         deletedStates: deletedStates
+//     });
+// });
 
 app.listen("3000", (req, res)=>{
     console.log("server is running on the 3000");

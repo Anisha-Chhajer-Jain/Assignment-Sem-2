@@ -231,65 +231,65 @@ app.patch('/states/:id/gdp', (req, res)=>{
 })
 
 
-// //route 10
+//route 10
 
 
-// app.patch('/states/:id', (req, res)=>{
-//     const id = Number(req.params.id);
-//     const state = states.find(u => u.id == id);
-//     const updateData = req.body;
+app.patch('/states/:id', (req, res)=>{
+    const id = Number(req.params.id);
+    const state = states.find(u => u.id == id);
+    const updateData = req.body;
 
-//      for (let key in updateData) {
-//         state[key] = updateData[key];
-//     }
+     for (let key in updateData) {
+        state[key] = updateData[key];
+    }
 
-//     res.status(201).json({
-//         message: "data changed successfully",
-//         state
-//     })
-// })
-
-
-
-// //route 11
-
-
-// app.delete('/states/:id', (req, res)=>{
-//     const id = Number(req.params.id);
-//     const data = states.findIndex(u=> u.id == id);
-//  if(data == -1){
-//         res.status(500).json({
-//             message: "invalid id"
-//         });
-//     }
-//      const deletedState = states.splice(data, 1);
-
-//       res.status(200).json({
-//         message: "State deleted successfully",
-//         deletedState: deletedState[0]
-//     });
-// })
+    res.status(201).json({
+        message: "data changed successfully",
+        state
+    })
+})
 
 
 
-// //route 12
+//route 11
 
-// app.delete('/states/name/:statename', (req, res)=>{
-//     const name = String(req.params.statename.toLowerCase());
-//     const delState = states.find(u=> u.name.toLowerCase() == name.toLowerCase());
-//     if(delState == -1){
-//         res.status(500).json({
-//             message: "no state found"
-//         })
-//     }
 
-//     const state = states.splice(name, 1);
+app.delete('/states/:id', (req, res)=>{
+    const id = Number(req.params.id);
+    const data = states.findIndex(u=> u.id == id);
+ if(data == -1){
+        res.status(500).json({
+            message: "invalid id"
+        });
+    }
+     const deletedState = states.splice(data, 1);
 
-//     res.status(200).json({
-//         message: "state deleted successfully",
-//         state: state[0]
-//     })
-// })
+      res.status(200).json({
+        message: "State deleted successfully",
+        deletedState: deletedState[0]
+    });
+})
+
+
+
+//route 12
+
+app.delete('/states/name/:statename', (req, res)=>{
+    const name = String(req.params.statename.toLowerCase());
+    const delState = states.find(u=> u.name.toLowerCase() == name.toLowerCase());
+    if(delState == -1){
+        res.status(500).json({
+            message: "no state found"
+        })
+    }
+
+    const state = states.splice(name, 1);
+
+    res.status(200).json({
+        message: "state deleted successfully",
+        state: state[0]
+    })
+})
 
 
 

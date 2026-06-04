@@ -134,76 +134,76 @@ app.put('/states/:id', (req, res)=>{
 })
 
 
-// //route 6
+//route 6
 
-// app.put('/states/:id/annualbudget', (req, res)=>{
-//     try{
-//     const id = Number(req.params.id);
-//     const state = states.find(u=> u.id == id);
+app.put('/states/:id/annualbudget', (req, res)=>{
+    try{
+    const id = Number(req.params.id);
+    const state = states.find(u=> u.id == id);
   
 
-//     state.annualBudget = req.body.annualBudget;
+    state.annualBudget = req.body.annualBudget;
 
-//     res.status(201).json({
-//         message: "data changed successfully",
-//         updateBudget: state.annualBudget
-//     })
-//     }
-//     catch{
-//         res.status(501).json({
-//             message: "data not changed"
-//         })
-//     }
-// })
-
-
-// //route 7
+    res.status(201).json({
+        message: "data changed successfully",
+        updateBudget: state.annualBudget
+    })
+    }
+    catch{
+        res.status(501).json({
+            message: "data not changed"
+        })
+    }
+})
 
 
-// app.put('/states/:id/population', (req, res)=>{
-//     try{
-//     const id = Number(req.params.id);
-//     const state = states.find(u => u.id == id);
-
-//     state.population = req.body.population
-
-//     res.status(200).json({
-//         message: "data changed successfullyy",
-//         name: state.name,
-//         updatedPop: state.population
-//     })
-
-//     }
-//     catch{
-//         res.status(500).json({
-//             message: "internal server error"
-//         })
-//     }
-// })
+//route 7
 
 
-// //route 8
+app.put('/states/:id/population', (req, res)=>{
+    try{
+    const id = Number(req.params.id);
+    const state = states.find(u => u.id == id);
 
-// app.patch('/states/:id/literacyrate', (req, res)=>{
-//     try{
-//     const id = Number(req.params.id);
-//     const state = states.find(u => u.id == id);
+    state.population = req.body.population
 
-//     state.literacyRate = req.body.literacyRate
+    res.status(200).json({
+        message: "data changed successfullyy",
+        name: state.name,
+        updatedPop: state.population
+    })
 
-//     res.status(200).json({
-//         message: "data changed successfullyy",
-//         name: state.name,
-//         updatedLit: state.literacyRate
-//     })
+    }
+    catch{
+        res.status(500).json({
+            message: "internal server error"
+        })
+    }
+})
 
-//     }
-//     catch{
-//         res.status(500).json({
-//             message: "please give proper id"
-//         })
-//     }
-// })
+
+//route 8
+
+app.patch('/states/:id/literacyrate', (req, res)=>{
+    try{
+    const id = Number(req.params.id);
+    const state = states.find(u => u.id == id);
+
+    state.literacyRate = req.body.literacyRate
+
+    res.status(200).json({
+        message: "data changed successfullyy",
+        name: state.name,
+        updatedLit: state.literacyRate
+    })
+
+    }
+    catch{
+        res.status(500).json({
+            message: "please give proper id"
+        })
+    }
+})
 
 
 // //route 9

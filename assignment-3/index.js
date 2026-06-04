@@ -293,26 +293,26 @@ app.delete('/states/name/:statename', (req, res)=>{
 
 
 
-// //route 13
+//route 13
 
 
-// app.delete('/states/low-literacy/:percentage', (req, res) => {
-//     const percentage = Number(req.params.percentage);
-//     let deletedStates = [];
+app.delete('/states/low-literacy/:percentage', (req, res) => {
+    const percentage = Number(req.params.percentage);
+    let deletedStates = [];
 
-//     for (let i = 0; i < states.length; i++) {
-//         if (states[i].literacyRate < percentage) {
-//             const removed = states.splice(i, 1); 
-//             deletedStates.push(removed[0]);
-//             i--;
-//         }
-//     }
+    for (let i = 0; i < states.length; i++) {
+        if (states[i].literacyRate < percentage) {
+            const removed = states.splice(i, 1); 
+            deletedStates.push(removed[0]);
+            i--;
+        }
+    }
 
-//     res.status(201).json({
-//         message: "Data deleted successfully",
-//         deletedStates: deletedStates
-//     });
-// });
+    res.status(201).json({
+        message: "Data deleted successfully",
+        deletedStates: deletedStates
+    });
+});
 
 app.listen("3000", (req, res)=>{
     console.log("server is running on the 3000");

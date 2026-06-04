@@ -1,0 +1,310 @@
+{
+  "info": {
+    "_postman_id": "notes-api-assignment-01-crud",
+    "name": "Notes Management REST API — Assignment 01",
+    "description": "Complete REST API for Notes Management built with Node.js + Express + MongoDB (Mongoose).\n\nAuthor: Anisha Chhajer\nCourse: Backend with Node.js\n\n**Base URL:** `http://localhost:5000/api/notes`\n\n**Response Format (all endpoints):**\n```json\n{\n  \"success\": true | false,\n  \"message\": \"...\",\n  \"data\": {} | [] | null\n}\n```",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5000",
+      "type": "string",
+      "description": "Base URL of the server. Change this if deployed."
+    },
+    {
+      "key": "noteId",
+      "value": "",
+      "type": "string",
+      "description": "Paste a valid MongoDB ObjectId here after creating a note."
+    }
+  ],
+  "item": [
+    {
+      "name": "1. Create Note (POST /api/notes)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 201\", function () {",
+              "    pm.response.to.have.status(201);",
+              "});",
+              "",
+              "pm.test(\"Response has success: true\", function () {",
+              "    var json = pm.response.json();",
+              "    pm.expect(json.success).to.eql(true);",
+              "});",
+              "",
+              "pm.test(\"Response message is correct\", function () {",
+              "    var json = pm.response.json();",
+              "    pm.expect(json.message).to.eql(\"Note created successfully\");",
+              "});",
+              "",
+              "pm.test(\"Response data contains _id\", function () {",
+              "    var json = pm.response.json();",
+              "    pm.expect(json.data).to.have.property(\"_id\");",
+              "    pm.collectionVariables.set(\"noteId\", json.data._id);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Team standup agenda\",\n  \"content\": \"Discuss sprint blockers and deployment plan\",\n  \"category\": \"work\",\n  \"isPinned\": true\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/notes",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "notes"]
+        }
+      }
+    },
+    {
+      "name": "2. Create Bulk Notes (POST /api/notes/bulk)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 201\", function () {",
+              "    pm.response.to.have.status(201);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"notes\": [\n    { \"title\": \"Note one\",   \"content\": \"Content one\",   \"category\": \"work\"     },\n    { \"title\": \"Note two\",   \"content\": \"Content two\",   \"category\": \"study\"    },\n    { \"title\": \"Note three\", \"content\": \"Content three\", \"category\": \"personal\" }\n  ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/notes/bulk",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "notes", "bulk"]
+        }
+      }
+    },
+    {
+      "name": "3. Get All Notes (GET /api/notes)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/notes",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "notes"]
+        }
+      }
+    },
+    {
+      "name": "4. Get Note by ID (GET /api/notes/:id)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/notes/{{noteId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "notes", "{{noteId}}"]
+        }
+      }
+    },
+    {
+      "name": "5. Replace Note completely (PUT /api/notes/:id)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Completely new title\",\n  \"content\": \"Completely new content\",\n  \"category\": \"personal\",\n  \"isPinned\": false\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/notes/{{noteId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "notes", "{{noteId}}"]
+        }
+      }
+    },
+    {
+      "name": "6. Update Note partially (PATCH /api/notes/:id)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"isPinned\": true\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/notes/{{noteId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "notes", "{{noteId}}"]
+        }
+      }
+    },
+    {
+      "name": "7. Delete Note (DELETE /api/notes/:id)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/notes/{{noteId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "notes", "{{noteId}}"]
+        }
+      }
+    },
+    {
+      "name": "8. Delete Bulk Notes (DELETE /api/notes/bulk)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"ids\": [\n    \"64b1f2c3e4d5a6b7c8d9e0f1\",\n    \"64b1f2c3e4d5a6b7c8d9e0f2\"\n  ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/notes/bulk",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "notes", "bulk"]
+        }
+      }
+    }
+  ]
+}

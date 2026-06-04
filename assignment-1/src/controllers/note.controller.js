@@ -1,5 +1,7 @@
+const mongoose = require("mongoose");
 const Note = require("../models/note.model");
 
+// 1. POST /api/notes - Create a note
 const createNote = async (req, res) => {
   try {
     const { title, content, category, isPinned } = req.body;
@@ -29,12 +31,13 @@ const createNote = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: error.message,
+      message: error.message || "Server error",
       data: null,
     });
   }
 };
 
+// 2. POST /api/notes/bulk - Create multiple notes
 const createBulkNotes = async (req, res) => {
   try {
     const { notes } = req.body;
@@ -42,7 +45,7 @@ const createBulkNotes = async (req, res) => {
     if (!notes || !Array.isArray(notes) || notes.length === 0) {
       return res.status(400).json({
         success: false,
-        message: "Notes array is required and cannot be empty",
+        message: "notes array is required and cannot be empty",
         data: null,
       });
     }
@@ -57,12 +60,13 @@ const createBulkNotes = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: error.message,
+      message: error.message || "Server error",
       data: null,
     });
   }
 };
 
+// 3. GET /api/notes - Get all notes
 const getAllNotes = async (req, res) => {
   try {
     const notes = await Note.find();
@@ -74,21 +78,21 @@ const getAllNotes = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: error.message,
+      message: error.message || "Server error",
       data: null,
     });
   }
 };
 
+// 4. GET /api/notes/:id - Get note by ID
 const getNoteById = async (req, res) => {
   try {
     const { id } = req.params;
-    const mongoose = require("mongoose");
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return res.status(400).json({
         success: false,
-        message: "Invalid note ID format",
+        message: "Invalid note ID",
         data: null,
       });
     }
@@ -111,28 +115,40 @@ const getNoteById = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: error.message,
+      message: error.message || "Server error",
       data: null,
     });
   }
 };
 
+// 5. PUT /api/notes/:id - Replace note completely
 const replaceNote = async (req, res) => {
   try {
     const { id } = req.params;
-    const mongoose = require("mongoose");
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return res.status(400).json({
         success: false,
-        message: "Invalid note ID format",
+        message: "Invalid note ID",
         data: null,
       });
     }
 
+    const { title, content, category, isPinned } = req.body;
+    if (!title || !content) {
+      return res.status(400).json({
+        success: false,
+        message: "Title and content are required",
+        data: null,
+      });
+    }
+
+    const categoryVal = category !== undefined ? category : "personal";
+    const isPinnedVal = isPinned !== undefined ? isPinned : false;
+
     const replacedNote = await Note.findOneAndUpdate(
       { _id: id },
-      req.body,
+      { title, content, category: categoryVal, isPinned: isPinnedVal },
       { new: true, overwrite: true, runValidators: true }
     );
 
@@ -152,26 +168,26 @@ const replaceNote = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: error.message,
+      message: error.message || "Server error",
       data: null,
     });
   }
 };
 
+// 6. PATCH /api/notes/:id - Update specific fields only
 const updateNote = async (req, res) => {
   try {
     const { id } = req.params;
-    const mongoose = require("mongoose");
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return res.status(400).json({
         success: false,
-        message: "Invalid note ID format",
+        message: "Invalid note ID",
         data: null,
       });
     }
 
-    if (Object.keys(req.body).length === 0) {
+    if (!req.body || Object.keys(req.body).length === 0) {
       return res.status(400).json({
         success: false,
         message: "No fields provided to update",
@@ -201,21 +217,21 @@ const updateNote = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: error.message,
+      message: error.message || "Server error",
       data: null,
     });
   }
 };
 
+// 7. DELETE /api/notes/:id - Delete a single note
 const deleteNote = async (req, res) => {
   try {
     const { id } = req.params;
-    const mongoose = require("mongoose");
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return res.status(400).json({
         success: false,
-        message: "Invalid note ID format",
+        message: "Invalid note ID",
         data: null,
       });
     }
@@ -238,12 +254,13 @@ const deleteNote = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: error.message,
+      message: error.message || "Server error",
       data: null,
     });
   }
 };
 
+// 8. DELETE /api/notes/bulk - Delete multiple notes
 const deleteBulkNotes = async (req, res) => {
   try {
     const { ids } = req.body;
@@ -251,7 +268,7 @@ const deleteBulkNotes = async (req, res) => {
     if (!ids || !Array.isArray(ids) || ids.length === 0) {
       return res.status(400).json({
         success: false,
-        message: "IDs array is required and cannot be empty",
+        message: "ids array is required and cannot be empty",
         data: null,
       });
     }
@@ -266,7 +283,7 @@ const deleteBulkNotes = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: error.message,
+      message: error.message || "Server error",
       data: null,
     });
   }

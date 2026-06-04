@@ -111,27 +111,27 @@ catch{
 }
 })
 
-// //route 5
+//route 5
 
-// app.put('/states/:id', (req, res)=>{
-//     try{
-//     const id = Number(req.params.id);
-//     const data = states.findIndex(u=> u.id == id);
-//     const updateData = req.body;
-//     if(data !== -1){
-//           states[data] = {
-//             id: states[data].id,
-//             ...updateData
-//           }
-//     }
-//     res.status(201).json(states[data])
-//     }
-//     catch{
-//         res.status(501).json({
-//             message: "data can not be changed"
-//         })
-//     }
-// })
+app.put('/states/:id', (req, res)=>{
+    try{
+    const id = Number(req.params.id);
+    const data = states.findIndex(u=> u.id == id);
+    const updateData = req.body;
+    if(data !== -1){
+          states[data] = {
+            id: states[data].id,
+            ...updateData
+          }
+    }
+    res.status(201).json(states[data])
+    }
+    catch{
+        res.status(501).json({
+            message: "data can not be changed"
+        })
+    }
+})
 
 
 // //route 6

@@ -90,26 +90,26 @@ app.get('/states/:id', (req, res)=>{
 //route 4
 
 
-// app.post('/states', (req, res)=>{
-//     try{
-//   const {id, name, population, GDP} = req.body;
+app.post('/states', (req, res)=>{
+    try{
+  const {id, name, population, GDP} = req.body;
 
-//     const newState = {
-//         id: states.length + 1,
-//         name,
-//         population,
-//         GDP
-//     };
-//      states.push(newState);
-//     res.status(201).json(newState);
+    const newState = {
+        id: states.length + 1,
+        name,
+        population,
+        GDP
+    };
+     states.push(newState);
+    res.status(201).json(newState);
 
-// }
-// catch{
-//     res.status(404).json({
-//         message: "not found"
-//     })
-// }
-// })
+}
+catch{
+    res.status(404).json({
+        message: "not found"
+    })
+}
+})
 
 // //route 5
 
